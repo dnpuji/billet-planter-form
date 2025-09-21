@@ -46,7 +46,7 @@
   <script>
     const form = document.getElementById("workForm");
     const status = document.getElementById("status");
-    const endpoint = "https://script.google.com/macros/s/AKfycbwR5vr3cxaCvMa8j0F77gZvOpu_maxGuIdrHxm5UVcMhwVZOqtqf-fpcg9JEECmBDA5/exec"; // ganti dengan URL web app Apps Script
+    const endpoint = "https://script.google.com/macros/s/AKfycbywWcfWiw45hQKkuM45PVKxCwDisus4i4wWLAvgd43me9ZHUuzOf8NjpKiMWLuPIIkk/exec"; // ganti dengan URL web app Apps Script
 
     function saveLocal(data) {
       let offlineData = JSON.parse(localStorage.getItem("offlineData")) || [];
@@ -67,7 +67,7 @@
           throw new Error("Gagal");
         }
       } catch {
-        status.innerText = "📡 Offline, data disimpan sementara";
+        status.innerText = "📡 Sinyal susah ya?? sabar ya data tetap tersimpan kok";
         saveLocal(data);
         return false;
       }
@@ -99,3 +99,4 @@
   </script>
 </body>
 </html>
+
