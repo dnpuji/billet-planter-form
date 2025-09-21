@@ -1,103 +1,158 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aplikasi Billet Planter</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #f9f9f9;
+    }
+    header {
+      background: #2a9d8f;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+    main {
+      padding: 15px;
+    }
+    h2, h3 {
+      margin-top: 0;
+    }
     .hidden { display: none; }
-    form { max-width: 400px; margin-top: 20px; }
-    label { font-weight: bold; }
-    input, select, textarea { width: 100%; padding: 6px; margin-bottom: 10px; }
-    button { padding: 8px 16px; font-size: 16px; margin: 5px; }
-    #status, #hasilKalibrasi { margin-top: 10px; font-weight: bold; }
+    form {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 15px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    button {
+      background: #2a9d8f;
+      color: white;
+      font-weight: bold;
+      border: none;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+    button.secondary {
+      background: #ccc;
+      color: black;
+    }
+    #status, #hasilKalibrasi {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
-  <h2>Menu Billet Planter</h2>
-  <button onclick="showPage('inputPage')">📋 Input Data</button>
-  <button onclick="showPage('kalibrasiPage')">⚙️ Kalibrasi</button>
+  <header>
+    <h2>Aplikasi Billet Planter</h2>
+  </header>
+  <main>
+    <!-- Menu -->
+    <div id="menu">
+      <button onclick="showPage('inputPage')">📋 Input Data</button>
+      <button onclick="showPage('kalibrasiPage')">⚙️ Kalibrasi</button>
+    </div>
 
-  <!-- Halaman Input Data -->
-  <div id="inputPage" class="hidden">
-    <h3>Form Input Hasil Kerja</h3>
-    <form id="workForm">
-      <label>Billet Planter:</label>
-      <select id="planter" required>
-        <option value="">-- Pilih Planter --</option>
-        <option value="Planter 1">Planter 1</option>
-        <option value="Planter 2">Planter 2</option>
-        <option value="Planter 3">Planter 3</option>
-        <option value="Planter 4">Planter 4</option>
-      </select>
+    <!-- Halaman Input Data -->
+    <div id="inputPage" class="hidden">
+      <h3>Form Input Hasil Kerja</h3>
+      <form id="workForm">
+        <label>Billet Planter:</label>
+        <select id="planter" required>
+          <option value="">-- Pilih Planter --</option>
+          <option value="Planter 1">Planter 1</option>
+          <option value="Planter 2">Planter 2</option>
+          <option value="Planter 3">Planter 3</option>
+          <option value="Planter 4">Planter 4</option>
+        </select>
 
-      <label>Nama Karyawan:</label>
-      <input type="text" id="nama" required>
+        <label>Nama Karyawan:</label>
+        <input type="text" id="nama" required>
 
-      <label>Tanggal:</label>
-      <input type="date" id="tanggal" required>
+        <label>Tanggal:</label>
+        <input type="date" id="tanggal" required>
 
-      <label>Fungisida (L):</label>
-      <input type="number" id="fungisida" step="0.01" value="0">
+        <label>Fungisida (L):</label>
+        <input type="number" id="fungisida" step="0.01" value="0">
 
-      <label>Insektisida (Kg):</label>
-      <input type="number" id="insektisida" step="0.01" value="0">
+        <label>Insektisida (Kg):</label>
+        <input type="number" id="insektisida" step="0.01" value="0">
 
-      <label>Pupuk (Kg):</label>
-      <input type="number" id="pupuk" step="0.01" value="0">
+        <label>Pupuk (Kg):</label>
+        <input type="number" id="pupuk" step="0.01" value="0">
 
-      <label>BIN (Unit):</label>
-      <input type="number" id="bin" step="1" value="0">
+        <label>BIN (Unit):</label>
+        <input type="number" id="bin" step="1" value="0">
 
-      <label>Keterangan:</label>
-      <textarea id="keterangan"></textarea>
+        <label>Keterangan:</label>
+        <textarea id="keterangan"></textarea>
 
-      <button type="submit">Simpan</button>
-      <button type="button" onclick="showPage('menu')">⬅️ Kembali</button>
-    </form>
-  </div>
+        <button type="submit">✅ Simpan</button>
+        <button type="button" class="secondary" onclick="showPage('menu')">⬅️ Kembali</button>
+      </form>
+    </div>
 
-  <!-- Halaman Kalibrasi -->
-  <div id="kalibrasiPage" class="hidden">
-    <h3>Kalkulator Kalibrasi Fungisida</h3>
-    <form id="kalibrasiForm">
-      <label>Sisa Air di Tangki (L):</label>
-      <input type="number" id="sisaAir" step="0.1" required>
+    <!-- Halaman Kalibrasi -->
+    <div id="kalibrasiPage" class="hidden">
+      <h3>Kalkulator Kalibrasi Fungisida</h3>
+      <form id="kalibrasiForm">
+        <label>Sisa Air di Tangki (L):</label>
+        <input type="number" id="sisaAir" step="0.1" required>
 
-      <label>Dosis Fungisida (L per 1 L air):</label>
-      <input type="number" id="dosis" step="0.01" value="0.24" required>
+        <label>Dosis Fungisida (L per 1 L air):</label>
+        <input type="number" id="dosis" step="0.01" value="0.24" required>
 
-      <button type="submit">Hitung</button>
-      <button type="button" onclick="showPage('menu')">⬅️ Kembali</button>
-    </form>
+        <button type="submit">🔢 Hitung</button>
+        <button type="button" class="secondary" onclick="showPage('menu')">⬅️ Kembali</button>
+      </form>
 
-    <div id="hasilKalibrasi"></div>
-  </div>
+      <div id="hasilKalibrasi"></div>
+    </div>
 
-  <p id="status"></p>
+    <p id="status"></p>
+  </main>
 
   <script>
     const status = document.getElementById("status");
     const hasilKalibrasi = document.getElementById("hasilKalibrasi");
     const endpoint = "https://script.google.com/macros/s/AKfycbzKsI1Po0cFrJUKD_dRVLPcmL1lZBow5nZ1u9PYklzmxy0Fet69Vv59KLZdtApX9ARp/exec"; // ganti dengan URL Apps Script
 
-    // fungsi pindah halaman
     function showPage(page) {
+      document.getElementById("menu").classList.add("hidden");
       document.getElementById("inputPage").classList.add("hidden");
       document.getElementById("kalibrasiPage").classList.add("hidden");
+      if (page === "menu") document.getElementById("menu").classList.remove("hidden");
       if (page === "inputPage") document.getElementById("inputPage").classList.remove("hidden");
       if (page === "kalibrasiPage") document.getElementById("kalibrasiPage").classList.remove("hidden");
-      if (page === "menu") status.innerText = "";
     }
 
-    // simpan offline
     function saveLocal(data) {
       let offlineData = JSON.parse(localStorage.getItem("offlineData")) || [];
       offlineData.push(data);
       localStorage.setItem("offlineData", JSON.stringify(offlineData));
     }
 
-    // kirim data ke spreadsheet
     async function sendData(data) {
       try {
         let response = await fetch(endpoint, {
@@ -117,7 +172,6 @@
       }
     }
 
-    // event form input kerja
     document.getElementById("workForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const data = {
@@ -134,10 +188,9 @@
       e.target.reset();
     });
 
-    // event form kalibrasi
     document.getElementById("kalibrasiForm").addEventListener("submit", (e) => {
       e.preventDefault();
-      const totalTangki = 20; // L
+      const totalTangki = 20;
       const sisa = parseFloat(document.getElementById("sisaAir").value);
       const dosis = parseFloat(document.getElementById("dosis").value);
 
@@ -152,7 +205,6 @@
       `;
     });
 
-    // sync offline kalau online
     window.addEventListener("online", async () => {
       let offlineData = JSON.parse(localStorage.getItem("offlineData")) || [];
       for (let data of offlineData) {
