@@ -7,76 +7,27 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#2a9d8f">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0; padding: 0;
-      background: #f9f9f9;
-    }
-    header {
-      background: #2a9d8f;
-      color: white;
-      text-align: center;
-      padding: 15px;
-    }
-    main {
-      padding: 15px;
-    }
-    h2, h3 {
-      margin-top: 0;
-    }
+    body {font-family: Arial, sans-serif;margin: 0; padding: 0;background: #f9f9f9;}
+    header {background: #2a9d8f;color: white;text-align: center;padding: 15px;}
+    main {padding: 15px;}
+    h2, h3 {margin-top: 0;}
     .hidden { display: none; }
-    form {
-      background: white;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      margin-bottom: 15px;
-    }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-top: 10px;
-    }
-    input, select, textarea, button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 5px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      box-sizing: border-box;
-    }
-    button {
-      background: #2a9d8f;
-      color: white;
-      font-weight: bold;
-      border: none;
-      margin-top: 15px;
-      cursor: pointer;
-    }
-    button.secondary {
-      background: #ccc;
-      color: black;
-    }
-    #status, #hasilKalibrasi {
-      margin-top: 15px;
-      font-weight: bold;
-      font-size: 16px;
-    }
+    form {background: white;padding: 15px;border-radius: 10px;box-shadow: 0 2px 5px rgba(0,0,0,0.1);margin-bottom: 15px;}
+    label {font-weight: bold;display: block;margin-top: 10px;}
+    input, select, textarea, button {width: 100%;padding: 12px;margin-top: 5px;border-radius: 8px;border: 1px solid #ccc;font-size: 16px;box-sizing: border-box;}
+    button {background: #2a9d8f;color: white;font-weight: bold;border: none;margin-top: 15px;cursor: pointer;}
+    button.secondary {background: #ccc;color: black;}
+    #status, #hasilKalibrasi {margin-top: 15px;font-weight: bold;font-size: 16px;}
   </style>
 </head>
 <body>
-  <header>
-    <h2>Aplikasi Billet Planter</h2>
-  </header>
+  <header><h2>Aplikasi Billet Planter</h2></header>
   <main>
-    <!-- Menu -->
     <div id="menu">
       <button onclick="showPage('inputPage')">📋 Input Data</button>
       <button onclick="showPage('kalibrasiPage')">⚙️ Kalibrasi</button>
     </div>
 
-    <!-- Halaman Input Data -->
     <div id="inputPage" class="hidden">
       <h3>Form Input Hasil Kerja</h3>
       <form id="workForm">
@@ -88,47 +39,35 @@
           <option value="Planter 3">Planter 3</option>
           <option value="Planter 4">Planter 4</option>
         </select>
-
         <label>Nama Karyawan:</label>
         <input type="text" id="nama" required>
-
         <label>Tanggal:</label>
         <input type="date" id="tanggal" required>
-
         <label>Fungisida (L):</label>
         <input type="number" id="fungisida" step="0.01" value="0">
-
         <label>Insektisida (Kg):</label>
         <input type="number" id="insektisida" step="0.01" value="0">
-
         <label>Pupuk (Kg):</label>
         <input type="number" id="pupuk" step="0.01" value="0">
-
         <label>BIN (Unit):</label>
         <input type="number" id="bin" step="1" value="0">
-
         <label>Keterangan:</label>
         <textarea id="keterangan"></textarea>
-
         <button type="submit">✅ Simpan</button>
         <button type="button" class="secondary" onclick="showPage('menu')">⬅️ Kembali</button>
       </form>
     </div>
 
-    <!-- Halaman Kalibrasi -->
     <div id="kalibrasiPage" class="hidden">
       <h3>Kalkulator Kalibrasi Fungisida</h3>
       <form id="kalibrasiForm">
         <label>Sisa Air di Tangki (L):</label>
         <input type="number" id="sisaAir" step="0.1" required>
-
         <label>Dosis Fungisida (L per 1 L air):</label>
         <input type="number" id="dosis" step="0.01" value="0.24" required>
-
         <button type="submit">🔢 Hitung</button>
         <button type="button" class="secondary" onclick="showPage('menu')">⬅️ Kembali</button>
       </form>
-
       <div id="hasilKalibrasi"></div>
     </div>
 
@@ -138,7 +77,7 @@
   <script>
     const status = document.getElementById("status");
     const hasilKalibrasi = document.getElementById("hasilKalibrasi");
-    const endpoint = "https://script.google.com/macros/s/AKfycbyxfaFvKr9ntvtwO__Hs93-dV1lFXiOaGfxr9iAsymBDrvQDMmK9Gu5Cg9MnZyFM23u/exec"; // ganti dengan URL Apps Script Anda
+    const endpoint = "https://script.google.com/macros/s/AKfycby-STqoXZJE5XkOdaZzUU3V3ZdxoMSjYNS1ngNX_YAJvx_1rRV0dq0p7Tdt7tvwb4gw/exec";
 
     function showPage(page) {
       document.getElementById("menu").classList.add("hidden");
@@ -153,6 +92,10 @@
       let offlineData = JSON.parse(localStorage.getItem("offlineData")) || [];
       offlineData.push(data);
       localStorage.setItem("offlineData", JSON.stringify(offlineData));
+    }
+
+    function generateID() {
+      return 'id-' + Date.now() + '-' + Math.random().toString(36).substr(2,9);
     }
 
     async function sendData(data) {
@@ -177,6 +120,7 @@
     document.getElementById("workForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const data = {
+        id: generateID(),
         planter: document.getElementById("planter").value,
         nama: document.getElementById("nama").value,
         tanggal: document.getElementById("tanggal").value,
@@ -195,16 +139,12 @@
       const totalTangki = 20;
       const sisa = parseFloat(document.getElementById("sisaAir").value);
       const dosis = parseFloat(document.getElementById("dosis").value);
-
       const tambahanAir = totalTangki - sisa;
       const perluFungisida = tambahanAir * dosis;
       const perluAir = tambahanAir - perluFungisida;
-
-      hasilKalibrasi.innerHTML = `
-        ✅ Tambahkan <b>${perluAir.toFixed(2)} L air</b><br>
+      hasilKalibrasi.innerHTML = `✅ Tambahkan <b>${perluAir.toFixed(2)} L air</b><br>
         ✅ Tambahkan <b>${perluFungisida.toFixed(2)} L fungisida</b><br>
-        🔹 Total campuran tambahan = ${tambahanAir.toFixed(2)} L
-      `;
+        🔹 Total campuran tambahan = ${tambahanAir.toFixed(2)} L`;
     });
 
     window.addEventListener("online", async () => {
@@ -215,7 +155,6 @@
       localStorage.removeItem("offlineData");
     });
 
-    // register service worker untuk PWA
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js")
         .then(() => console.log("Service Worker registered"))
