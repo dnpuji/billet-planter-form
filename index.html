@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aplikasi Billet Planter</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2a9d8f">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -136,7 +138,7 @@
   <script>
     const status = document.getElementById("status");
     const hasilKalibrasi = document.getElementById("hasilKalibrasi");
-    const endpoint = "https://script.google.com/macros/s/AKfycbzKsI1Po0cFrJUKD_dRVLPcmL1lZBow5nZ1u9PYklzmxy0Fet69Vv59KLZdtApX9ARp/exec"; // ganti dengan URL Apps Script
+    const endpoint = "https://script.google.com/macros/s/AKfycbyxfaFvKr9ntvtwO__Hs93-dV1lFXiOaGfxr9iAsymBDrvQDMmK9Gu5Cg9MnZyFM23u/exec"; // ganti dengan URL Apps Script Anda
 
     function showPage(page) {
       document.getElementById("menu").classList.add("hidden");
@@ -212,6 +214,13 @@
       }
       localStorage.removeItem("offlineData");
     });
+
+    // register service worker untuk PWA
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js")
+        .then(() => console.log("Service Worker registered"))
+        .catch(err => console.log("SW fail:", err));
+    }
   </script>
 </body>
 </html>
