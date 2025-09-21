@@ -3,41 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <title>Input Hasil Kerja Billet Planter</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    form { max-width: 400px; }
+    label { font-weight: bold; }
+    input, select, textarea { width: 100%; padding: 6px; margin-bottom: 10px; }
+    button { padding: 8px 16px; font-size: 16px; }
+    #status { margin-top: 10px; font-weight: bold; }
+  </style>
 </head>
 <body>
   <h2>Form Laporan Pemakaian Bahan Billet Planter</h2>
   <form id="workForm">
     
-    <label>Billet Planter:</label><br>
+    <label>Billet Planter:</label>
     <select id="planter" required>
       <option value="">-- Pilih Planter --</option>
       <option value="Planter 1">Planter 1</option>
       <option value="Planter 2">Planter 2</option>
       <option value="Planter 3">Planter 3</option>
       <option value="Planter 4">Planter 4</option>
-    </select><br><br>
+    </select>
 
-    <label>Nama Karyawan:</label><br>
-    <input type="text" id="nama" required><br><br>
-    
-    <label>Tanggal:</label><br>
-    <input type="date" id="tanggal" required><br><br>
-    
-    <label>Fungisida (L):</label><br>
-    <input type="number" id="fungisida" step="0.01" value="0"><br><br>
-    
-    <label>Insektisida (Kg):</label><br>
-    <input type="number" id="insektisida" step="0.01" value="0"><br><br>
-    
-    <label>Pupuk (Kg):</label><br>
-    <input type="number" id="pupuk" step="0.01" value="0"><br><br>
-    
-    <label>BIN:</label><br>
-    <input type="number" id="bin" step="1" value="0"><br><br>
-    
-    <label>Keterangan:</label><br>
-    <textarea id="keterangan"></textarea><br><br>
-    
+    <label>Nama Karyawan:</label>
+    <input type="text" id="nama" required>
+
+    <label>Tanggal:</label>
+    <input type="date" id="tanggal" required>
+
+    <label>Fungisida (L):</label>
+    <input type="number" id="fungisida" step="0.01" value="0">
+
+    <label>Insektisida (Kg):</label>
+    <input type="number" id="insektisida" step="0.01" value="0">
+
+    <label>Pupuk (Kg):</label>
+    <input type="number" id="pupuk" step="0.01" value="0">
+
+    <label>BIN (Unit):</label>
+    <input type="number" id="bin" step="1" value="0">
+
+    <label>Keterangan:</label>
+    <textarea id="keterangan"></textarea>
+
     <button type="submit">Simpan</button>
   </form>
 
@@ -46,7 +54,7 @@
   <script>
     const form = document.getElementById("workForm");
     const status = document.getElementById("status");
-    const endpoint = "https://script.google.com/macros/s/AKfycbywWcfWiw45hQKkuM45PVKxCwDisus4i4wWLAvgd43me9ZHUuzOf8NjpKiMWLuPIIkk/exec"; // ganti dengan URL web app Apps Script
+    const endpoint = "https://script.google.com/macros/s/AKfycbyliV5Tp9hY5uXNkQay4WHglqz-UV10wJYZzdpnWNemzwWWgjmH8ch1zilht8frKAJK/exec"; // ganti dengan URL Web App dari Apps Script
 
     function saveLocal(data) {
       let offlineData = JSON.parse(localStorage.getItem("offlineData")) || [];
@@ -61,13 +69,13 @@
           body: JSON.stringify(data)
         });
         if (response.ok) {
-          status.innerText = "✅ Data terkirim";
+          status.innerText = "✅ Data terkirim ke server";
           return true;
         } else {
           throw new Error("Gagal");
         }
       } catch {
-        status.innerText = "📡 Sinyal susah ya?? sabar ya data tetap tersimpan kok";
+        status.innerText = "📡 Offline, data disimpan sementara";
         saveLocal(data);
         return false;
       }
@@ -89,6 +97,7 @@
       form.reset();
     });
 
+    // kalau online lagi, sync data offline
     window.addEventListener("online", async () => {
       let offlineData = JSON.parse(localStorage.getItem("offlineData")) || [];
       for (let data of offlineData) {
@@ -99,4 +108,3 @@
   </script>
 </body>
 </html>
-
